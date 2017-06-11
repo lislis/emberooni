@@ -1,0 +1,10 @@
+Hey There
+
+<ul>
+{{#each model as |file|}}
+  <li>{{file.id}} {{file.country}} {{file.testStartTime}} {{file.asn}} {{file.DownloadUrl}}</li>
+{{else}}
+  <li> nothing</li>
+{{/each}}
+</ul>
+{{outlet}}

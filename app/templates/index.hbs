@@ -1,10 +1,43 @@
 Hey There
 
-<ul>
-{{#each model as |file|}}
-  <li>{{file.id}} {{file.country}} {{file.testStartTime}} {{file.asn}} {{file.DownloadUrl}}</li>
+{{#x-select value=bob action=(action 'setCountry') as |xs|}}
+  {{#xs.option value=null}}
+
+    {{if country 'Clear filter' 'Filter by country'}}
+  {{/xs.option}}
+  {{#xs.option value=null disabled=true}}---{{/xs.option}}
+
+  <optgroup label="Countries with measurements">
+    {{#each uniqCountries as |country|}}
+      {{#xs.option value=country.country}}{{country.country}}{{/xs.option}}
+    {{/each}}
+  </optgroup>
+
+  <optgroup label="All countries">
+  {{#each countryList as |country|}}
+    {{#xs.option value=country.iso2}}{{country.name}}{{/xs.option}}
+  {{/each}}
+  </optgroup>
+{{/x-select}}
+
+
+{{#if filtered.length}}
+  {{#if country}}
+    <p>{{filtered.length}} measurements for {{country}}</p>
+  {{else}}
+    <p>{{filtered.length}} measurements in total</p>
+  {{/if}}
 {{else}}
-  <li> nothing</li>
-{{/each}}
+  <p>There are no measurements for {{country}}. Displaying all instead</p>
+{{/if}}
+
+<ul>
+  {{#each filtered as |file|}}
+    <li>{{file.id}} {{file.country}} {{file.testStartTime}} {{file.asn}} {{file.DownloadUrl}}</li>
+  {{else}}
+    {{#each model as |file|}}
+      <li>{{file.id}} {{file.country}} {{file.testStartTime}} {{file.asn}} {{file.DownloadUrl}}</li>
+    {{/each}}
+  {{/each}}
 </ul>
 {{outlet}}

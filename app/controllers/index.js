@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { COUNTRIES_LIST, getCountry } from 'ember-countries';
+import { COUNTRIES_LIST } from 'ember-countries';
+import moment from 'moment';
 
 export default Ember.Controller.extend({
     queryParams: ['country'],
@@ -19,6 +20,20 @@ export default Ember.Controller.extend({
             return model;
         }
     }),
+
+    days: Ember.computed('model', function () {
+        let arr= [];
+        this.get('model').map((el) => {
+            let startDate = el.get('testStartTime');
+            let date = moment(startDate).format('MMM Do YYYY');
+
+            if (!arr.includes(date)) {
+                arr.push(date);
+            }
+        });
+        return arr;
+    }),
+
     actions: {
         setCountry(param) {
             this.set('country', param);

@@ -21,6 +21,14 @@ Hey There
 {{/x-select}}
 
 
+{{days.length}}
+
+<ul>
+{{#each days as |day|}}
+  <li>{{day}}</li>
+{{/each}}
+</ul>
+
 {{#if filtered.length}}
   {{#if country}}
     <p>{{filtered.length}} measurements for {{country}}</p>

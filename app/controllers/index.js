@@ -21,17 +21,16 @@ export default Ember.Controller.extend({
         }
     }),
 
-    days: Ember.computed('model', function () {
-        let arr= [];
-        this.get('model').map((el) => {
-            let startDate = el.get('testStartTime');
-            let date = moment(startDate).format('MMM Do YYYY');
-
-            if (!arr.includes(date)) {
-                arr.push(date);
-            }
-        });
-        return arr;
+    days: Ember.computed(function () {
+        let daysInPast = 7;
+        let weekAgo = moment().subtract(daysInPast, 'days').format();
+        let days = [];
+        for (let i = 0; i < daysInPast; i++) {
+            days.push({
+                timestamp: moment().subtract(i, 'days').format('dddd, MMMM Do YYYY')
+            });
+        }
+        return days;
     }),
 
     actions: {

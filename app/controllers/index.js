@@ -23,14 +23,33 @@ export default Ember.Controller.extend({
 
     days: Ember.computed(function () {
         let daysInPast = 7;
-        let weekAgo = moment().subtract(daysInPast, 'days').format();
+        // let weekAgo = moment().subtract(daysInPast, 'days').format();
         let days = [];
         for (let i = 0; i < daysInPast; i++) {
             days.push({
-                timestamp: moment().subtract(i, 'days').format('dddd, MMMM Do YYYY')
+                prettyDate: moment().subtract(i, 'days').format('dddd, MMMM Do YYYY'),
+                timestamp: moment().subtract(i, 'days').format()
             });
         }
         return days;
+    }),
+
+    timeline: Ember.computed('days', 'filtered.[]', function () {
+        let days = this.get('days');
+        let filtered = this.get('filtered');
+        let timeline = [];
+
+        days.forEach(function (v) {
+            let dayData = {};
+            dayData.day = v;
+            let compareableDay = moment(v.timestamp).format('YYYY-MM-DD');
+            dayData.files = filtered.filter((c) => {
+                let compareableFileDate = moment(c.get('testStartTime')).format('YYYY-MM-DD');
+                return compareableDay === compareableFileDate;
+            });
+            timeline.push(dayData);
+        });
+        return timeline;
     }),
 
     actions: {

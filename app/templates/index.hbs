@@ -1,5 +1,4 @@
-Hey There
-
+<h1>EmberOONI</h1>
 {{#x-select value=bob action=(action 'setCountry') as |xs|}}
   {{#xs.option value=null}}
 
@@ -20,15 +19,7 @@ Hey There
   </optgroup>
 {{/x-select}}
 
-
-{{days.length}}
-
-<ul>
-{{#each days as |day|}}
-  <li>{{day.timestamp}}</li>
-{{/each}}
-</ul>
-
+<div>
 {{#if filtered.length}}
   {{#if country}}
     <p>{{filtered.length}} measurements for {{country}}</p>
@@ -38,14 +29,20 @@ Hey There
 {{else}}
   <p>There are no measurements for {{country}}. Displaying all instead</p>
 {{/if}}
+</div>
 
 <ul>
-  {{#each filtered as |file|}}
-    <li>{{file.id}} {{file.country}} {{file.testStartTime}} {{file.asn}} {{file.DownloadUrl}}</li>
-  {{else}}
-    {{#each model as |file|}}
-      <li>{{file.id}} {{file.country}} {{file.testStartTime}} {{file.asn}} {{file.DownloadUrl}}</li>
+{{#each timeline as |time|}}
+  <li>{{time.day.prettyDate}}</li>
+
+  <ul>
+    {{#each time.files as |file|}}
+      <li>{{file.testStartTime}}</li>
+    {{else}}
+      <li>nothing (yet?)</li>
     {{/each}}
-  {{/each}}
+  </ul>
+{{/each}}
 </ul>
+
 {{outlet}}

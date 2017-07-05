@@ -1,8 +1,7 @@
-<h1>EmberOONI</h1>
 {{#x-select value=bob action=(action 'setCountry') as |xs|}}
   {{#xs.option value=null}}
 
-    {{if country 'Clear filter' 'Filter by country'}}
+  {{if country 'Clear filter' 'Filter by country'}}
   {{/xs.option}}
   {{#xs.option value=null disabled=true}}---{{/xs.option}}
 
@@ -17,6 +16,17 @@
     {{#xs.option value=country.iso2}}{{country.name}}{{/xs.option}}
   {{/each}}
   </optgroup>
+{{/x-select}}
+
+<input type="range" min="1" max="7" step="1" list="dayslist">
+
+{{#x-select value=3 action=(action 'setDaysPast') as |xs|}}
+  {{#each days as |day|}}
+    {{#xs.option value="foo"}}{{day.prettyDate}}{{/xs.option}}
+  {{/each}}
+  {{#xs.option value=3}}3 Days{{/xs.option}}
+  {{#xs.option value=5}}5 days{{/xs.option}}
+  {{#xs.option value=7}}7 DaysL{{/xs.option}}
 {{/x-select}}
 
 <div>

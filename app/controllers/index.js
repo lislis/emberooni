@@ -3,14 +3,15 @@ import { COUNTRIES_LIST } from 'ember-countries';
 import moment from 'moment';
 
 export default Ember.Controller.extend({
-    queryParams: ['country'],
+    queryParams: ['country', 'daysPast'],
     country: null,
+    daysPast: 7,
 
     countryList: COUNTRIES_LIST,
 
     uniqCountries: Ember.computed.uniqBy('model', 'country'),
 
-    filtered: Ember.computed('country', 'model', function() {
+    filtered: Ember.computed('daysPast', 'country', 'model', function() {
         let country = this.get('country');
         let model = this.get('model');
 
@@ -21,8 +22,8 @@ export default Ember.Controller.extend({
         }
     }),
 
-    days: Ember.computed(function () {
-        let daysInPast = 7;
+    days: Ember.computed('daysPast', function () {
+        let daysInPast = this.get('daysPast');
         // let weekAgo = moment().subtract(daysInPast, 'days').format();
         let days = [];
         for (let i = 0; i < daysInPast; i++) {
@@ -55,6 +56,9 @@ export default Ember.Controller.extend({
     actions: {
         setCountry(param) {
             this.set('country', param);
+        },
+        setDaysPast(param) {
+            this.set('daysPast', param);
         }
     }
 });

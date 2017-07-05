@@ -5,5 +5,5 @@ export default DS.Model.extend({
     country: DS.attr('string'),
     asn: DS.attr('string'),
     testStartTime: DS.attr('string'),
-    DownloadUrl: DS.attr('atring')
+    downloadUrl: DS.attr('atring')
 });

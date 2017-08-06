@@ -5,13 +5,13 @@ import moment from 'moment';
 export default Ember.Controller.extend({
     queryParams: ['country', 'daysPast'],
     country: null,
-    daysPast: 7,
+    daysPast: 5,
 
     countryList: COUNTRIES_LIST,
 
     uniqCountries: Ember.computed.uniqBy('model', 'country'),
 
-    filtered: Ember.computed('daysPast', 'country', 'model', function() {
+    filtered: Ember.computed('daysPast', 'country', 'model.[]', function() {
         let country = this.get('country');
         let model = this.get('model');
 

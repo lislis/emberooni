@@ -1,3 +1,5 @@
+<button type="button"  {{action 'setCountry' null}}>Clear country filter</button>
+
 {{#x-select value=bob action=(action 'setCountry') as |xs|}}
   {{#xs.option value=null}}
 
@@ -18,17 +20,6 @@
   </optgroup>
 {{/x-select}}
 
-<input type="range" min="1" max="7" step="1" list="dayslist">
-
-{{#x-select value=3 action=(action 'setDaysPast') as |xs|}}
-  {{#each days as |day|}}
-    {{#xs.option value="foo"}}{{day.prettyDate}}{{/xs.option}}
-  {{/each}}
-  {{#xs.option value=3}}3 Days{{/xs.option}}
-  {{#xs.option value=5}}5 days{{/xs.option}}
-  {{#xs.option value=7}}7 DaysL{{/xs.option}}
-{{/x-select}}
-
 <div>
 {{#if filtered.length}}
   {{#if country}}
@@ -37,9 +28,11 @@
     <p>{{filtered.length}} measurements in total</p>
   {{/if}}
 {{else}}
-  <p>There are no measurements for {{country}}. Displaying all instead</p>
+  <p>There are no measurements for {{country}}.</p>
+  <button type="button"  {{action 'setCountry' null}}>Display allr</button>
 {{/if}}
 </div>
+
 
 <ul>
 {{#each timeline as |time|}}
@@ -54,5 +47,7 @@
   </ul>
 {{/each}}
 </ul>
+
+<button {{action 'loadMoreDays'}} type="button">Load 3 more days</button>
 
 {{outlet}}
